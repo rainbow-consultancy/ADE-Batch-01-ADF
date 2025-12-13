@@ -1,0 +1,35 @@
+{
+	"name": "DS_ADLS_SINGLE_FILE_DYNAMIC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_STORAGE",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TargetTableName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ADLS"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat(\r\n  toLower(dataset().TargetTableName),\r\n  '_',\r\n  formatDateTime(utcNow(), 'yyyyMMdd')\r\n)\r\n",
+					"type": "Expression"
+				},
+				"folderPath": "proccessed",
+				"fileSystem": "databricks-container"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
