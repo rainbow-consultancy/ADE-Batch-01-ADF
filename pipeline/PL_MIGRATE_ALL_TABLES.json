@@ -1,0 +1,125 @@
+{
+	"name": "PL_MIGRATE_ALL_TABLES",
+	"properties": {
+		"activities": [
+			{
+				"name": "LookupSchema",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT\nTABLE_SCHEMA,\nTABLE_NAME\nFROM INFORMATION_SCHEMA.TABLES\nWHERE TABLE_TYPE = 'BASE TABLE';",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DS_AZURE_SQL",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEachTable",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "LookupSchema",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('LookupSchema').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "CopyEachFile",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_DYNAMIC_ALL_TABLE",
+									"type": "DatasetReference",
+									"parameters": {
+										"SchemName": {
+											"value": "@item().SchemName",
+											"type": "Expression"
+										},
+										"TableName": {
+											"value": "@item().TableName",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_DYNAMIC_ALL_TABLES",
+									"type": "DatasetReference",
+									"parameters": {
+										"TargetTableName": {
+											"value": "@item().TableName",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "Migration"
+		},
+		"annotations": []
+	}
+}
