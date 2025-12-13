@@ -106,7 +106,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"TargetTableName": {
-											"value": "@item().TableName",
+											"value": "@item().TABLE_NAME",
 											"type": "Expression"
 										}
 									}
