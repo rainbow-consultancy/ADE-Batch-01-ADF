@@ -58,7 +58,16 @@
 								"secureOutput": false,
 								"secureInput": false
 							},
-							"userProperties": [],
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().TABLE_SCHEMA}.@{item().TABLE_NAME}"
+								},
+								{
+									"name": "Destination",
+									"value": "databricks-container/proccessed/@{concat(\n  toLower(item().TABLE_NAME),\n  '_',\n  formatDateTime(utcNow(), 'yyyyMMdd')\n)\n}"
+								}
+							],
 							"typeProperties": {
 								"source": {
 									"type": "AzureSqlSource",
