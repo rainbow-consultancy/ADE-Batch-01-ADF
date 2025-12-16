@@ -1,0 +1,36 @@
+{
+	"name": "DS_TARGET_ADLS_BINARY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_STORAGE",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TargetFolder": {
+				"type": "string"
+			},
+			"TargetFile": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ADLS"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().TargetFile",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().TargetFolder",
+					"type": "Expression"
+				},
+				"fileSystem": "databricks-container"
+			}
+		}
+	}
+}
