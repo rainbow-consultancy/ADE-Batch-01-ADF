@@ -1,0 +1,6 @@
+{
+	"name": "IR-Rainbow-Self-Hosted-SQL-Server",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
