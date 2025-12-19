@@ -19,7 +19,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": {
-					"value": "@concat(\r\n  toLower(dataset().TargetTableName),\r\n  '_',\r\n  formatDateTime(utcNow(), 'yyyyMMdd')\r\n)\r\n",
+					"value": "@concat(\n  toLower(dataset().TargetTableName),\n  '_',\n  formatDateTime(utcNow(), 'yyyyMMdd')\n)\n",
 					"type": "Expression"
 				},
 				"folderPath": "proccessed",
