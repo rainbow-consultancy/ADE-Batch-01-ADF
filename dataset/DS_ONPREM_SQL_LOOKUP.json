@@ -1,0 +1,16 @@
+{
+	"name": "DS_ONPREM_SQL_LOOKUP",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ONPREM_SQL_SERVER",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "Sales",
+			"table": "Customer"
+		}
+	}
+}
