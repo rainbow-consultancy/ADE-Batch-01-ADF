@@ -5,11 +5,6 @@
 			"referenceName": "LS_ADLS_STORAGE",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"TargetFileName": {
-				"type": "string"
-			}
-		},
 		"folder": {
 			"name": "ADLS"
 		},
@@ -18,10 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@dataset().TargetFileName",
-					"type": "Expression"
-				},
+				"fileName": "bihar_elections_aggregated.csv",
 				"folderPath": "SILVER_PROCESSED",
 				"fileSystem": "databricks-container"
 			},
