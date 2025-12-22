@@ -44,7 +44,6 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     limit: 100,",
 				"     ignoreNoFilesFound: false,",
 				"     partitionBy('hash', 1)) ~> TARNSFORMELECTIONDS",
 				"TARNSFORMELECTIONDS aggregate(groupBy(Party),",
