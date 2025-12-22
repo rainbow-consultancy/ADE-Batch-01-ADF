@@ -1,0 +1,63 @@
+{
+	"name": "DF_TRANSFORM_ELECTION_DS",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADLS_CSV_DATA_FLOW",
+						"type": "DatasetReference"
+					},
+					"name": "TARNSFORMELECTIONDS",
+					"description": "Transforming Election Dataset"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADLS_CSV_DATA_FLOW_TARGET",
+						"type": "DatasetReference"
+					},
+					"name": "WriteDatasetToTarget"
+				}
+			],
+			"transformations": [
+				{
+					"name": "GROUPBYPARTY"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     df_filename as string",
+				"}",
+				"source(output(",
+				"          {Constituency Number} as short,",
+				"          {Constituency Name} as string,",
+				"          {Serial Number} as short,",
+				"          {Candidate Name} as string,",
+				"          Party as string,",
+				"          {EVM Votes} as integer,",
+				"          {Postal Votes} as short,",
+				"          {Total Votes} as integer,",
+				"          {Vote Percentage} as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     limit: 100,",
+				"     ignoreNoFilesFound: false,",
+				"     partitionBy('hash', 1)) ~> TARNSFORMELECTIONDS",
+				"TARNSFORMELECTIONDS aggregate(groupBy(Party),",
+				"     TotalCandidatePerParty = count({Candidate Name})) ~> GROUPBYPARTY",
+				"GROUPBYPARTY sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> WriteDatasetToTarget"
+			]
+		}
+	}
+}

@@ -1,0 +1,35 @@
+{
+	"name": "DS_ADLS_CSV_DATA_FLOW",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_STORAGE",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ADLS"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"folderPath": "silver",
+				"fileSystem": "databricks-container"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
