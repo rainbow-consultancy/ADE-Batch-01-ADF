@@ -50,6 +50,7 @@
 				"     TotalCandidatePerParty = count({Candidate Name})) ~> GROUPBYPARTY",
 				"GROUPBYPARTY sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     partitionFileNames:[''],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
