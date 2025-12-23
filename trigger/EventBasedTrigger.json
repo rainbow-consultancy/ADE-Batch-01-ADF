@@ -10,7 +10,7 @@
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"SourceFolder": "@triggerBody().folderPath",
+					"SourceFolder": "@replace(triggerBody().folderPath,'databricks-container/','')",
 					"SourceFile": "@triggerBody().fileName"
 				}
 			}
