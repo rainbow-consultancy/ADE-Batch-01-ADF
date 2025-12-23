@@ -65,7 +65,7 @@
 		},
 		"EventBasedTrigger_properties_PL_EVENT_BASED_parameters_SourceFolder": {
 			"type": "string",
-			"defaultValue": "@triggerBody().folderPath"
+			"defaultValue": "@replace(triggerBody().folderPath,'databricks-container/','')"
 		},
 		"EventBasedTrigger_properties_PL_EVENT_BASED_parameters_SourceFile": {
 			"type": "string",

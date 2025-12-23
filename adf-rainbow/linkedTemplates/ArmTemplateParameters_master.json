@@ -48,7 +48,7 @@
 			"value": "adf_user2"
 		},
 		"EventBasedTrigger_properties_PL_EVENT_BASED_parameters_SourceFolder": {
-			"value": "@triggerBody().folderPath"
+			"value": "@replace(triggerBody().folderPath,'databricks-container/','')"
 		},
 		"EventBasedTrigger_properties_PL_EVENT_BASED_parameters_SourceFile": {
 			"value": "@triggerBody().fileName"
