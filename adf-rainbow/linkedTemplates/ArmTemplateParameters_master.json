@@ -1,0 +1,60 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-rainbow"
+		},
+		"LS_ADLS_STORAGE_accountKey": {
+			"value": ""
+		},
+		"LS_AZURE_SQL_DATABASE_password": {
+			"value": ""
+		},
+		"LS_ONPREM_SQL_SERVER_password": {
+			"value": ""
+		},
+		"LS_SQL_SERVER_ONPREM_password": {
+			"value": ""
+		},
+		"LS_ADLS_STORAGE_properties_typeProperties_url": {
+			"value": "https://rainbowstorageadls.dfs.core.windows.net/"
+		},
+		"LS_AZURE_SQL_DATABASE_properties_typeProperties_server": {
+			"value": "rainbow-server.database.windows.net"
+		},
+		"LS_AZURE_SQL_DATABASE_properties_typeProperties_database": {
+			"value": "rainbow-db"
+		},
+		"LS_AZURE_SQL_DATABASE_properties_typeProperties_userName": {
+			"value": "rainbow-user"
+		},
+		"LS_ONPREM_SQL_SERVER_properties_typeProperties_server": {
+			"value": "SandeepReddy"
+		},
+		"LS_ONPREM_SQL_SERVER_properties_typeProperties_database": {
+			"value": "AdventureWorks2025"
+		},
+		"LS_ONPREM_SQL_SERVER_properties_typeProperties_userName": {
+			"value": "sandeep2"
+		},
+		"LS_SQL_SERVER_ONPREM_properties_typeProperties_server": {
+			"value": "SANDEEPREDDY"
+		},
+		"LS_SQL_SERVER_ONPREM_properties_typeProperties_database": {
+			"value": "AdventureWorksLT2025"
+		},
+		"LS_SQL_SERVER_ONPREM_properties_typeProperties_userName": {
+			"value": "adf_user2"
+		},
+		"EventBasedTrigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/55a823ff-3572-4afe-84f3-2631597109ef/resourceGroups/rg_rainbow/providers/Microsoft.Storage/storageAccounts/rainbowstorageadls"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
