@@ -3,18 +3,7 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "PL_EVENT_BASED_MIGRATION",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"SourceFolder": "@triggerBody().folderPath",
-					"SourceFile": "@triggerBody().fileName"
-				}
-			}
-		],
+		"pipelines": [],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
 			"blobPathBeginsWith": "/databricks-container/blobs/Events/",
