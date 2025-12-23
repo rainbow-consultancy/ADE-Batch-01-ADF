@@ -1,0 +1,41 @@
+{
+	"name": "DS_CSV_EVENT_BASED",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_STORAGE",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"RootFolder": {
+				"type": "string"
+			},
+			"SourceFile": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ADLS_EVENTS"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().SourceFile",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().RootFolder",
+					"type": "Expression"
+				},
+				"fileSystem": "databricks-container"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

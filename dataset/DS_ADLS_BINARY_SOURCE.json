@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "raw-datasets",
+				"folderPath": "Events",
 				"fileSystem": "databricks-container"
 			}
 		}
