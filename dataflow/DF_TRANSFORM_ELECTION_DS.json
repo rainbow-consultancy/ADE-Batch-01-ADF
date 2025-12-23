@@ -28,9 +28,6 @@
 				}
 			],
 			"scriptLines": [
-				"parameters{",
-				"     df_filename as string",
-				"}",
 				"source(output(",
 				"          {Constituency Number} as short,",
 				"          {Constituency Name} as string,",
@@ -50,7 +47,8 @@
 				"     TotalCandidatePerParty = count({Candidate Name})) ~> GROUPBYPARTY",
 				"GROUPBYPARTY sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     partitionFileNames:[''],",
+				"     partitionFileNames:['bihar_elections_agg_data'],",
+				"     truncate: true,",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
