@@ -1,0 +1,38 @@
+{
+	"name": "DS_EVENTS_COPY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_STORAGE",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Folder": {
+				"type": "string"
+			},
+			"File": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().File",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().Folder",
+					"type": "Expression"
+				},
+				"fileSystem": "databricks-container"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
