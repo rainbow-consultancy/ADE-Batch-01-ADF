@@ -144,7 +144,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "@concat(\n  'UPDATE control_table SET ',\n  item().last_watermark,\n  ' = (SELECT MAX(',\n  item().watermark_column,\n  ') as val FROM ',\n  item().table_name,\n  ') WHERE table_name = ''',\n  item().table_name,\n  ''''\n)\n",
+											"value": "@concat(\n  'UPDATE control_table SET ',\n  item().watermark_column,\n  ' = (SELECT MAX(',\n  item().watermark_column,\n  ') FROM ',\n  item().table_name,\n  ') WHERE table_name = ''',\n  item().table_name,\n  ''''\n)\n",
 											"type": "Expression"
 										}
 									}
