@@ -1,0 +1,15 @@
+{
+	"name": "DS_AZURE_SQL_DB",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AZURE_SQL_DATABASE",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "INC_LOADS"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
