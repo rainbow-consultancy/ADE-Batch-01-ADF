@@ -23,7 +23,10 @@
 					},
 					"dataset": {
 						"referenceName": "DS_AZURE_SQL_DB",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "control_table"
+						}
 					},
 					"firstRowOnly": false
 				}
@@ -93,7 +96,10 @@
 							"inputs": [
 								{
 									"referenceName": "DS_AZURE_SQL_DB",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": "sales_order"
+									}
 								}
 							],
 							"outputs": [
