@@ -15,13 +15,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_AZURE_SQL_DATABASE'"
 		},
-		"LS_SQL_SERVER_ONPREM_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_SQL_SERVER_ONPREM'"
-		},
 		"LS_ONPREM_SQL_SERVER_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_ONPREM_SQL_SERVER'"
+		},
+		"LS_SQL_SERVER_ONPREM_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_SQL_SERVER_ONPREM'"
 		},
 		"LS_ADLS_STORAGE_properties_typeProperties_url": {
 			"type": "string",
@@ -39,18 +39,6 @@
 			"type": "string",
 			"defaultValue": "rainbow-user"
 		},
-		"LS_SQL_SERVER_ONPREM_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "SANDEEPREDDY"
-		},
-		"LS_SQL_SERVER_ONPREM_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "AdventureWorksLT2025"
-		},
-		"LS_SQL_SERVER_ONPREM_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "adf_user2"
-		},
 		"LS_ONPREM_SQL_SERVER_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "SandeepReddy"
@@ -62,6 +50,18 @@
 		"LS_ONPREM_SQL_SERVER_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "sandeep2"
+		},
+		"LS_SQL_SERVER_ONPREM_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "SANDEEPREDDY"
+		},
+		"LS_SQL_SERVER_ONPREM_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "AdventureWorksLT2025"
+		},
+		"LS_SQL_SERVER_ONPREM_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sandeep"
 		},
 		"EventBasedTrigger_properties_PL_EVENT_BASED_parameters_SourceFolder": {
 			"type": "string",
@@ -118,32 +118,6 @@
 					"alwaysEncryptedSettings": {
 						"alwaysEncryptedAkvAuthType": "ManagedIdentity"
 					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_SQL_SERVER_ONPREM')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"server": "[parameters('LS_SQL_SERVER_ONPREM_properties_typeProperties_server')]",
-					"database": "[parameters('LS_SQL_SERVER_ONPREM_properties_typeProperties_database')]",
-					"encrypt": "True",
-					"trustServerCertificate": true,
-					"authenticationType": "SQL",
-					"userName": "[parameters('LS_SQL_SERVER_ONPREM_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('LS_SQL_SERVER_ONPREM_password')]"
-					},
-					"integratedSecurity": "True",
-					"pooling": "False",
-					"multipleActiveResultSets": "False",
-					"commandTimeout": "0"
 				}
 			},
 			"dependsOn": []
@@ -229,6 +203,110 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/integrationRuntimes/IR-Rainbow-Self-Hosted-SQL-Server')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_SQL_SERVER_ONPREM')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"server": "[parameters('LS_SQL_SERVER_ONPREM_properties_typeProperties_server')]",
+					"database": "[parameters('LS_SQL_SERVER_ONPREM_properties_typeProperties_database')]",
+					"encrypt": "True",
+					"trustServerCertificate": true,
+					"authenticationType": "SQL",
+					"userName": "[parameters('LS_SQL_SERVER_ONPREM_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('LS_SQL_SERVER_ONPREM_password')]"
+					},
+					"integratedSecurity": "True",
+					"pooling": "False",
+					"multipleActiveResultSets": "False",
+					"commandTimeout": "0"
+				},
+				"connectVia": {
+					"referenceName": "IR-Rainbow-Self-Hosted-SQL-Server",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-Rainbow-Self-Hosted-SQL-Server')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_AZURE_SQL_DB')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_AZURE_SQL_DATABASE",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"TableName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "INC_LOADS"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": {
+						"value": "@dataset().TableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_AZURE_SQL_DATABASE')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_AZURE_SQL_TO_ADLS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_STORAGE",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"TargetFileName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "INC_LOADS"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().TargetFileName",
+							"type": "Expression"
+						},
+						"folderPath": "IncrementalTables",
+						"fileSystem": "databricks-container"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_STORAGE')]"
 			]
 		},
 		{
@@ -370,6 +448,177 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_EVENTS_COPY')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PL_INCR_DATA')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "LookUpMetadata",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "select table_name, watermark_column, last_watermark from dbo.control_table\nwhere is_active = 1",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "DS_AZURE_SQL_DB",
+								"type": "DatasetReference",
+								"parameters": {
+									"TableName": "control_table"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEachTable",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "LookUpMetadata",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('LookUpMetadata').output.value",
+								"type": "Expression"
+							},
+							"batchCount": 10,
+							"activities": [
+								{
+									"name": "CopyIncData",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "select \n* \nfrom @{item().table_name}\nwhere @{item().watermark_column} > '@{item().last_watermark}';",
+												"type": "Expression"
+											},
+											"queryTimeout": "02:00:00",
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "DelimitedTextSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings",
+												"copyBehavior": "FlattenHierarchy"
+											},
+											"formatSettings": {
+												"type": "DelimitedTextWriteSettings",
+												"quoteAllText": true,
+												"fileExtension": ".txt"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "DS_AZURE_SQL_DB",
+											"type": "DatasetReference",
+											"parameters": {
+												"TableName": "sales_order"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "DS_AZURE_SQL_TO_ADLS",
+											"type": "DatasetReference",
+											"parameters": {
+												"TargetFileName": {
+													"value": "@item().table_name",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								},
+								{
+									"name": "UpdateMetadata",
+									"type": "Script",
+									"dependsOn": [
+										{
+											"activity": "CopyIncData",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"linkedServiceName": {
+										"referenceName": "LS_AZURE_SQL_DATABASE",
+										"type": "LinkedServiceReference"
+									},
+									"typeProperties": {
+										"scripts": [
+											{
+												"type": "Query",
+												"text": {
+													"value": "@concat(\n  'UPDATE control_table SET ',\n  'last_watermark',\n  ' = (SELECT MAX(',\n  item().watermark_column,\n  ') FROM ',\n  item().table_name,\n  ') WHERE table_name = ''',\n  item().table_name,\n  ''''\n)\n",
+													"type": "Expression"
+												}
+											}
+										],
+										"scriptBlockExecutionTimeout": "02:00:00"
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_AZURE_SQL_DB')]",
+				"[concat(variables('factoryId'), '/datasets/DS_AZURE_SQL_TO_ADLS')]",
+				"[concat(variables('factoryId'), '/linkedServices/LS_AZURE_SQL_DATABASE')]"
 			]
 		},
 		{

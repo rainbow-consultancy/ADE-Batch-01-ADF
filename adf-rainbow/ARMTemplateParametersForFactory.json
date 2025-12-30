@@ -45,7 +45,7 @@
 			"value": "AdventureWorksLT2025"
 		},
 		"LS_SQL_SERVER_ONPREM_properties_typeProperties_userName": {
-			"value": "adf_user2"
+			"value": "sandeep"
 		},
 		"EventBasedTrigger_properties_PL_EVENT_BASED_parameters_SourceFolder": {
 			"value": "@replace(triggerBody().folderPath,'databricks-container/','')"

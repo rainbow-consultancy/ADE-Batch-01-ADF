@@ -61,7 +61,7 @@
 		},
 		"LS_SQL_SERVER_ONPREM_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "adf_user2"
+			"defaultValue": "sandeep"
 		},
 		"EventBasedTrigger_properties_PL_EVENT_BASED_parameters_SourceFolder": {
 			"type": "string",
@@ -108,11 +108,11 @@
 					"LS_AZURE_SQL_DATABASE_password": {
 						"value": "[parameters('LS_AZURE_SQL_DATABASE_password')]"
 					},
-					"LS_SQL_SERVER_ONPREM_password": {
-						"value": "[parameters('LS_SQL_SERVER_ONPREM_password')]"
-					},
 					"LS_ONPREM_SQL_SERVER_password": {
 						"value": "[parameters('LS_ONPREM_SQL_SERVER_password')]"
+					},
+					"LS_SQL_SERVER_ONPREM_password": {
+						"value": "[parameters('LS_SQL_SERVER_ONPREM_password')]"
 					},
 					"LS_ADLS_STORAGE_properties_typeProperties_url": {
 						"value": "[parameters('LS_ADLS_STORAGE_properties_typeProperties_url')]"
@@ -126,15 +126,6 @@
 					"LS_AZURE_SQL_DATABASE_properties_typeProperties_userName": {
 						"value": "[parameters('LS_AZURE_SQL_DATABASE_properties_typeProperties_userName')]"
 					},
-					"LS_SQL_SERVER_ONPREM_properties_typeProperties_server": {
-						"value": "[parameters('LS_SQL_SERVER_ONPREM_properties_typeProperties_server')]"
-					},
-					"LS_SQL_SERVER_ONPREM_properties_typeProperties_database": {
-						"value": "[parameters('LS_SQL_SERVER_ONPREM_properties_typeProperties_database')]"
-					},
-					"LS_SQL_SERVER_ONPREM_properties_typeProperties_userName": {
-						"value": "[parameters('LS_SQL_SERVER_ONPREM_properties_typeProperties_userName')]"
-					},
 					"LS_ONPREM_SQL_SERVER_properties_typeProperties_server": {
 						"value": "[parameters('LS_ONPREM_SQL_SERVER_properties_typeProperties_server')]"
 					},
@@ -143,6 +134,15 @@
 					},
 					"LS_ONPREM_SQL_SERVER_properties_typeProperties_userName": {
 						"value": "[parameters('LS_ONPREM_SQL_SERVER_properties_typeProperties_userName')]"
+					},
+					"LS_SQL_SERVER_ONPREM_properties_typeProperties_server": {
+						"value": "[parameters('LS_SQL_SERVER_ONPREM_properties_typeProperties_server')]"
+					},
+					"LS_SQL_SERVER_ONPREM_properties_typeProperties_database": {
+						"value": "[parameters('LS_SQL_SERVER_ONPREM_properties_typeProperties_database')]"
+					},
+					"LS_SQL_SERVER_ONPREM_properties_typeProperties_userName": {
+						"value": "[parameters('LS_SQL_SERVER_ONPREM_properties_typeProperties_userName')]"
 					},
 					"EventBasedTrigger_properties_PL_EVENT_BASED_parameters_SourceFolder": {
 						"value": "[parameters('EventBasedTrigger_properties_PL_EVENT_BASED_parameters_SourceFolder')]"
